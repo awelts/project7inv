@@ -59,12 +59,12 @@ public class init {
 		try {
 		int where, where2;
 		where2=line.indexOf(" ");
-		main.entryList[place].setItem(line.substring(0, where2));
+		Inv.entryList[place].setItem(line.substring(0, where2));
 		where=where2;
 		where2=line.indexOf(" ", where+1);
-		main.entryList[place].setQuantity(Integer.parseInt(line.substring(where+1, where2)));
+		Inv.entryList[place].setQuantity(Integer.parseInt(line.substring(where+1, where2)));
 		where=where2;
-		main.entryList[place].setNotes(line.substring(where+1));
+		Inv.entryList[place].setNotes(line.substring(where+1));
 		} catch (NullPointerException e) {
 			System.err.print(e);
 		}
