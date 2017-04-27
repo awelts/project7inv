@@ -1,0 +1,30 @@
+milk:37 dairy
+entry:28 this is an entry
+blah:12 does this work?
+bread:52 dry
+butter:81 dairy
+spaghetti:46 dry
+vegetable oil:12 wet
+milk:28 dairy
+cheese:15 dairy
+cereal:225 dry
+eggs:46 dairy
+cheese:56 dairy
+syrup:146 dry
+bananas:416 fruit
+trees:46 fruit
+noodles:84 dry
+grapes:416 fruit
+sugar:48 dry
+flour:84 dry
+apples:484 fruit
+salt:48 dry
+lettuce:76 fruit
+wine:498 alcohol
+beer:597 alcohol
+chair:468 household
+soda:64 liquid
+cola:562 liquid
+water:84 liquid
+soup:64 liquid
+ramen:68 dry
