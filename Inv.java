@@ -25,7 +25,7 @@ public static int numele=0;
     {	
 	for (int i=0; i < 200; ++i)
 	    entryList[i]=new items();
-	init.readIn("database.txt");
+	methods.init("database.txt");
 	System.out.println("Read in inv");
 	launch(args);
     }
@@ -78,7 +78,7 @@ public static int numele=0;
         hbox.getChildren().addAll(itemInput, quantityInput, notesInput, addB, deleteB);
                 
         table=new TableView<>();
-        table.setItems(getItems());
+        table.setItems(refresh());
         table.getColumns().addAll(itemColumn, quantityColumn, notesColumn);
         
                 
@@ -92,11 +92,12 @@ public static int numele=0;
     
     //add button clicked
     public void addButtonClicked(){
-        items listedItems=new items();
-        listedItems.setItem(itemInput.getText());
-        listedItems.setQuantity(Integer.parseInt(quantityInput.getText()));
-        listedItems.setNotes(notesInput.getText());
-        table.getItems().add(listedItems);
+	entryList[numele].setItem(itemInput.getText());
+	entryList[numele].setQuantity(Integer.parseInt(quantityInput.getText()));
+	entryList[numele].setNotes(notesInput.getText());
+	++numele;
+	table.getItems().clear();
+        table.setItems(refresh());
         itemInput.clear();
         quantityInput.clear();
         notesInput.clear();
@@ -104,11 +105,16 @@ public static int numele=0;
     
     //delete button clicked
     public void deleteButtonClicked(){
-        ObservableList<items> itemSelected, allItems;
-        allItems=table.getItems();
-        itemSelected=table.getSelectionModel().getSelectedItems();
-        
-        itemSelected.forEach(allItems::remove);
+	items temp;
+	int i=0;
+        temp=table.getItems().get(table.getSelectionModel().getSelectedIndex());
+	System.out.println(temp.getItem());
+	for (; !temp.getItem().equals(entryList[i].getItem()); ++i);
+	methods.remove(i);
+	table.getItems().clear();
+        table.setItems(refresh());
+	
+        //itemSelected.forEach(allItems::remove);
     }
     
     //find button clicked
@@ -117,13 +123,15 @@ public static int numele=0;
     //}
     
     
-    public ObservableList<items> getItems(){
+    public ObservableList<items> refresh(){
         ObservableList<items> Items=FXCollections.observableArrayList();
-        Items.add(new items("cookie", 12, "soft"));
-	for (int i=0; i < main.numele; ++i)
+	for (int i=0; i < numele; ++i)
 	{
-	    Items.add(new items(entryList[i].getItem(),entryList[i].getQuantity(), entryList[i].getNotes() ));
+	    Items.add(new items(entryList[i].getItem(), entryList[i].getQuantity(), entryList[i].getNotes() ));
 	}
         return Items;
     }
+    
+
+
 }
