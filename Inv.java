@@ -18,10 +18,16 @@ public class Inv extends Application {
     Stage window;
     TableView<items> table;
     TextField itemInput, quantityInput, notesInput;
-        
     
-    public static void main(String[] args){
-        launch(args);
+public static items[] entryList = new items[200];
+public static int numele=0;
+    public static void main(String[] args)
+    {	
+	for (int i=0; i < 200; ++i)
+	    entryList[i]=new items();
+	init.readIn("database.txt");
+	System.out.println("Read in inv");
+	launch(args);
     }
 
     @Override
@@ -116,7 +122,7 @@ public class Inv extends Application {
         Items.add(new items("cookie", 12, "soft"));
 	for (int i=0; i < main.numele; ++i)
 	{
-	    Items.add(new items(main.entryList[i].getItem(),main.entryList[i].getQuantity(), main.entryList[i].getNotes() ));
+	    Items.add(new items(entryList[i].getItem(),entryList[i].getQuantity(), entryList[i].getNotes() ));
 	}
         return Items;
     }
