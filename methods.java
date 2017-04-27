@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,15 +58,15 @@ public class methods {
     
     public static void process (String line, int place) /*takes lines, pastes into class entry*/
 	{
-		try {
-		int where, where2;
-		where2=line.indexOf(" ");
-		Inv.entryList[place].setItem(line.substring(0, where2));
-		where=where2;
-		where2=line.indexOf(" ", where+1);
-		Inv.entryList[place].setQuantity(Integer.parseInt(line.substring(where+1, where2)));
-		where=where2;
-		Inv.entryList[place].setNotes(line.substring(where+1));
+		try
+		{
+		    Matcher m=Pattern.compile("([\\w ]+):([\\d]+) (.*)").matcher(line);
+		    if (m.find())
+		    {
+			Inv.entryList[place].setItem(m.group(1));
+			Inv.entryList[place].setQuantity(Integer.parseInt(m.group(2)));
+			Inv.entryList[place].setNotes(m.group(3));
+		    }
 		} catch (NullPointerException e) {
 			System.err.print(e);
 		}
@@ -85,7 +87,7 @@ public class methods {
 	{
 	    PrintStream P  = new PrintStream(FileName);
 	    for (int i=0; i < Inv.numele; i++) {
-		    P.println(Inv.entryList[i].getItem()+ " " +Inv.entryList[i].getQuantity()  + " " +Inv.entryList[i].getNotes());
+		    P.println(Inv.entryList[i].getItem()+ ":" +Inv.entryList[i].getQuantity()  + " " +Inv.entryList[i].getNotes());
 	    }
 	    P.close();
 	    return;

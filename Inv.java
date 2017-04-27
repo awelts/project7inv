@@ -4,17 +4,14 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Inv extends Application {
@@ -29,7 +26,6 @@ public static int numele=0;
 	for (int i=0; i < 200; ++i)
 	    entryList[i]=new items();
 	methods.init("database.txt");
-	System.out.println("Read in inv");
 	launch(args);
     }
     
@@ -76,15 +72,15 @@ public static int numele=0;
         addB.setOnAction(e -> addButtonClicked());
         Button deleteB=new Button("delete");
         deleteB.setOnAction(e -> deleteButtonClicked());
-        //Button findB=new Button("find");
-        //findB.setOnAction(e -> findButtonClicked());
+        Button findB=new Button("search");
+        findB.setOnAction(e -> search.findButtonClicked());
         
         
         //hbox
         HBox hbox=new HBox();
         hbox.setPadding(new Insets(10,10,10,10));
         hbox.setSpacing(10);
-        hbox.getChildren().addAll(itemInput, quantityInput, notesInput, addB, deleteB);
+        hbox.getChildren().addAll(itemInput, quantityInput, notesInput, addB, deleteB, findB);
                 
         table=new TableView<>();
         table.setItems(refresh());
@@ -125,7 +121,8 @@ public static int numele=0;
     }
     
     
-    public ObservableList<items> refresh(){
+    
+    public static ObservableList<items> refresh(){
         ObservableList<items> Items=FXCollections.observableArrayList();
 	for (int i=0; i < numele; ++i)
 	{
@@ -133,7 +130,6 @@ public static int numele=0;
 	}
         return Items;
     }
-    
 
 
 }
