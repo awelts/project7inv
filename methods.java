@@ -79,12 +79,20 @@ public class methods {
 	
     }
     
-        public static void WriteInventory(String FileName) /*Writes to the file*/throws Exception
+    public static void WriteInventory(String FileName) /*Writes to the file*/
+    {
+	try
 	{
-		PrintStream P  = new PrintStream(FileName);
-		for (int i=0; i < Inv.numele; i++) {
-			P.println(Inv.entryList[i].getItem()+ " " +Inv.entryList[i].getQuantity()  + " " +Inv.entryList[i].getNotes());
-		}
-		P.close();	
+	    PrintStream P  = new PrintStream(FileName);
+	    for (int i=0; i < Inv.numele; i++) {
+		    P.println(Inv.entryList[i].getItem()+ " " +Inv.entryList[i].getQuantity()  + " " +Inv.entryList[i].getNotes());
+	    }
+	    P.close();
+	    return;
 	}
+	catch(Exception e)
+	{
+	    return;
+	}
+    }
 }

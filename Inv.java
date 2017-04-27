@@ -4,18 +4,21 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Inv extends Application {
-    Stage window;
+    static Stage window;
     TableView<items> table;
     TextField itemInput, quantityInput, notesInput;
     
@@ -28,6 +31,12 @@ public static int numele=0;
 	methods.init("database.txt");
 	System.out.println("Read in inv");
 	launch(args);
+    }
+    
+    @Override
+    public void stop()
+    {
+	methods.WriteInventory("database.txt");
     }
 
     @Override
@@ -113,14 +122,7 @@ public static int numele=0;
 	methods.remove(i);
 	table.getItems().clear();
         table.setItems(refresh());
-	
-        //itemSelected.forEach(allItems::remove);
     }
-    
-    //find button clicked
-    //public void findButtonClicked(){
-    //txtField= TextFields.createSearchField();
-    //}
     
     
     public ObservableList<items> refresh(){
