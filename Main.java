@@ -3,7 +3,6 @@ package inv;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableArray;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.scene.control.ButtonBase;
 
 public class Main extends Application {
     Stage window;
@@ -63,6 +61,9 @@ public class Main extends Application {
         addB.setOnAction(e -> addButtonClicked());
         Button deleteB=new Button("delete");
         deleteB.setOnAction(e -> deleteButtonClicked());
+        //Button findB=new Button("find");
+        //findB.setOnAction(e -> findButtonClicked());
+        
         
         //hbox
         HBox hbox=new HBox();
@@ -85,11 +86,11 @@ public class Main extends Application {
     
     //add button clicked
     public void addButtonClicked(){
-        items Items=new items();
-        Items.setItem(itemInput.getText());
-        Items.setQuantity(Integer.parseInt(quantityInput.getText()));
-        Items.setNotes(notesInput.getText());
-        table.getItems().add(Items);
+        items listedItems=new items();
+        listedItems.setItem(itemInput.getText());
+        listedItems.setQuantity(Integer.parseInt(quantityInput.getText()));
+        listedItems.setNotes(notesInput.getText());
+        table.getItems().add(listedItems);
         itemInput.clear();
         quantityInput.clear();
         notesInput.clear();
@@ -103,6 +104,11 @@ public class Main extends Application {
         
         itemSelected.forEach(allItems::remove);
     }
+    
+    //find button clicked
+    //public void findButtonClicked(){
+    //txtField= TextFields.createSearchField();
+    //}
     
     
     public ObservableList<items> getItems(){
