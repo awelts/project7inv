@@ -39,5 +39,9 @@ public class items{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public void addToQuantity(int quantity)
+    {
+	this.quantity+=quantity;
+    }
 
 }

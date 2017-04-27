@@ -1,0 +1,6 @@
+used regex: entry names can have multiple words
+everything refers to entryList, gets updated from there
+Search can search through notes, names, and qntys
+search uses regex as well
+automerge: merges any entries with the same name
+autoremove: removes any entry with a quantity of 0

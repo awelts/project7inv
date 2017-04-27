@@ -26,6 +26,7 @@ public static int numele=0;
 	for (int i=0; i < 200; ++i)
 	    entryList[i]=new items();
 	methods.init("database.txt");
+	methods.merge();
 	launch(args);
     }
     
@@ -97,10 +98,22 @@ public static int numele=0;
     
     //add button clicked
     public void addButtonClicked(){
-	entryList[numele].setItem(itemInput.getText());
-	entryList[numele].setQuantity(Integer.parseInt(quantityInput.getText()));
-	entryList[numele].setNotes(notesInput.getText());
-	++numele;
+	int index=methods.exists(itemInput.getText());
+	if (index == -1)
+	{
+	    entryList[numele].setItem(itemInput.getText());
+	    entryList[numele].setQuantity(Integer.parseInt(quantityInput.getText()));
+	    entryList[numele].setNotes(notesInput.getText());
+	    ++numele;
+	}
+	else
+	{
+	    entryList[index].setItem(itemInput.getText());
+	    entryList[index].addToQuantity(Integer.parseInt(quantityInput.getText()));
+	    entryList[index].setNotes(notesInput.getText());
+	    if (entryList[index].getQuantity() == 0)
+		methods.remove(index);
+	}
 	table.getItems().clear();
         table.setItems(refresh());
         itemInput.clear();

@@ -97,4 +97,36 @@ public class methods {
 	    return;
 	}
     }
+    public static int exists(String to_Search)
+    {
+	for (int i=0; i < Inv.numele; ++i)
+	{
+	    if (Inv.entryList[i].getItem().matches(to_Search))
+		return i;
+	}
+	return -1;
+    }
+    
+    public static int exists(String to_Search, int position)
+    {
+	for (int i=position; i < Inv.numele; ++i)
+	{
+	    if (Inv.entryList[i].getItem().matches(to_Search))
+		return i;
+	}
+	return -1;
+    }
+    public static void merge()
+    {
+	int found_pos;
+	for (int i=0; i < Inv.numele; ++i)
+	{
+	    found_pos=exists(Inv.entryList[i].getItem(), i+1);
+	    if ( found_pos != -1)
+	    {
+		Inv.entryList[i].addToQuantity(Inv.entryList[found_pos].getQuantity());
+		remove(found_pos);
+	    }
+	}
+    }
 }
