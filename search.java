@@ -5,6 +5,9 @@
  */
 package inv;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,9 +42,6 @@ public abstract class search extends Application {
 	searchbox.setTitle("Search");
 	searchField.setPromptText("search...");
 	Button b= new Button("search!");
-	b.setOnAction(e-> table2.setItems(found(searchField.getText())));
-	
-    
 	TableColumn<items, String> itemColumn=new TableColumn<>("Item");
         itemColumn.setMinWidth(150);
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
@@ -65,12 +65,20 @@ public abstract class search extends Application {
         hbox.setSpacing(10);
 	VBox vbox= new VBox();
 	vbox.getChildren().addAll(hbox, table2 );
-	
+	table2.setItems(found(searchField.getText()));
 	Scene scene= new Scene(vbox);
 	searchbox.setScene(scene);
 	searchbox.show();
 	
+	Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+         table2.setItems(found(searchField.getText()));   
+        }
+    }, 0, 20);
     }
+	
     public static ObservableList<items> found(String text)
     {
 	ObservableList<items> results=FXCollections.observableArrayList();
@@ -86,4 +94,5 @@ public abstract class search extends Application {
 	}
 	return results;
     }
+    
 }
