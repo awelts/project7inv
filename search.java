@@ -34,6 +34,8 @@ public abstract class search extends Application {
     
     private static TextField searchField=new TextField();
     private static TableView<items> table2= new TableView<items>();
+    private static boolean searchItems=true;
+    private static boolean searchNotes=true;
     
     public static void findButtonClicked()
     {
@@ -41,7 +43,14 @@ public abstract class search extends Application {
 	Stage searchbox=new Stage();
 	searchbox.setTitle("Search");
 	searchField.setPromptText("search...");
-	Button b= new Button("search!");
+	Button BAll= new Button("all");
+	BAll.setOnAction(e -> {searchItems=true; searchNotes=true;});
+	Button BNotes= new Button("notes");
+	BNotes.setOnAction(e -> {searchItems=false; searchNotes=true;});
+	Button close= new Button("Close");
+	close.setOnAction(e -> searchbox.close());
+	Button BName=new Button("items");
+	BName.setOnAction(e -> {searchItems=true; searchNotes=false;});
 	TableColumn<items, String> itemColumn=new TableColumn<>("Item");
         itemColumn.setMinWidth(150);
         itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
@@ -60,11 +69,11 @@ public abstract class search extends Application {
         table2.getColumns().addAll(itemColumn, quantityColumn, notesColumn);
 	
 	HBox hbox= new HBox();
-	hbox.getChildren().addAll(searchField, b);
+	hbox.getChildren().addAll(searchField, BAll, BName, BNotes);
 	hbox.setPadding(new Insets(10,10,10,10));
         hbox.setSpacing(10);
 	VBox vbox= new VBox();
-	vbox.getChildren().addAll(hbox, table2 );
+	vbox.getChildren().addAll(hbox, table2, close);
 	table2.setItems(found(searchField.getText()));
 	Scene scene= new Scene(vbox);
 	searchbox.setScene(scene);
@@ -78,17 +87,20 @@ public abstract class search extends Application {
         }
     }, 0, 20);
     }
-	
+    
+    
     public static ObservableList<items> found(String text)
     {
 	ObservableList<items> results=FXCollections.observableArrayList();
 	for (int i=0; i < Inv.numele; ++i)
 	{
+	    if (searchItems)
 	    if (Inv.entryList[i].getItem().matches(".*"+text+".*"))
 		results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantity(), Inv.entryList[i].getNotes()));
 	}
 	for (int i=0; i < Inv.numele; ++i)
 	{
+	    if (searchNotes)
 	    if (Inv.entryList[i].getNotes().matches(".*"+text+".*"))
 		results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantity(), Inv.entryList[i].getNotes()));
 	}
