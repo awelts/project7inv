@@ -1,41 +1,32 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+
 package inv;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- *
- * @author wmc
- */
+
 public abstract class search extends Application {
     
-    private static TextField searchField=new TextField();
+    
     private static TableView<items> table2= new TableView<items>();
-    private static boolean searchItems=true;
-    private static boolean searchNotes=true;
+    
     
     public static void findButtonClicked()
     {
@@ -51,27 +42,29 @@ public abstract class search extends Application {
 	close.setOnAction(e -> searchbox.close());
 	Button BName=new Button("items");
 	BName.setOnAction(e -> {searchItems=true; searchNotes=false;});
+	
+	//item column
 	TableColumn<items, String> itemColumn=new TableColumn<>("Item");
-        itemColumn.setMinWidth(150);
-        itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
-    
-        // quantity column
-        TableColumn<items, Integer> quantityColumn=new TableColumn<>("quantity");
-        quantityColumn.setMinWidth(100);
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-    
-        // notes column
-        TableColumn<items, String> notesColumn=new TableColumn<>("notes");
-        notesColumn.setMinWidth(300);
-        notesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
+	itemColumn.setMinWidth(150);
+	itemColumn.setCellValueFactory(new PropertyValueFactory<>("Item"));
+	
+	// quantity column
+	TableColumn<items, Integer> quantityColumn=new TableColumn<>("quantity");
+	quantityColumn.setMinWidth(100);
+	quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityString"));
+	
+	// notes column
+	TableColumn<items, String> notesColumn=new TableColumn<>("notes");
+	notesColumn.setMinWidth(300);
+	notesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
 	
 	table2=new TableView<>();
-        table2.getColumns().addAll(itemColumn, quantityColumn, notesColumn);
+	table2.getColumns().addAll(itemColumn, quantityColumn, notesColumn);
 	
 	HBox hbox= new HBox();
 	hbox.getChildren().addAll(searchField, BAll, BName, BNotes);
 	hbox.setPadding(new Insets(10,10,10,10));
-        hbox.setSpacing(10);
+	hbox.setSpacing(10);
 	VBox vbox= new VBox();
 	vbox.getChildren().addAll(hbox, table2, close);
 	table2.setItems(found(searchField.getText()));
@@ -80,12 +73,12 @@ public abstract class search extends Application {
 	searchbox.show();
 	
 	Timer timer = new Timer();
-    timer.scheduleAtFixedRate(new TimerTask() {
-        @Override
-        public void run() {
-         table2.setItems(found(searchField.getText()));   
-        }
-    }, 0, 20);
+	timer.scheduleAtFixedRate(new TimerTask() {
+	    @Override
+	    public void run() {
+		table2.setItems(found(searchField.getText()));
+	    }
+	}, 0, 20);
     }
     
     
@@ -95,16 +88,16 @@ public abstract class search extends Application {
 	for (int i=0; i < Inv.numele; ++i)
 	{
 	    if (searchItems)
-	    if (Inv.entryList[i].getItem().matches(".*"+text+".*"))
-		results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantity(), Inv.entryList[i].getNotes()));
+		if (Inv.entryList[i].getItem().matches(".*"+text+".*"))
+		    results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantityString(), Inv.entryList[i].getNotes()));
 	}
 	for (int i=0; i < Inv.numele; ++i)
 	{
 	    if (searchNotes)
-	    if (Inv.entryList[i].getNotes().matches(".*"+text+".*"))
-		results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantity(), Inv.entryList[i].getNotes()));
+		if (Inv.entryList[i].getNotes().matches(".*"+text+".*"))
+		    results.add(new items(Inv.entryList[i].getItem(), Inv.entryList[i].getQuantityString(), Inv.entryList[i].getNotes()));
 	}
 	return results;
     }
     
-}
+}*/

@@ -6,24 +6,10 @@
 package inv;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 /**
  *
@@ -60,11 +46,11 @@ public class methods {
 	{
 		try
 		{
-		    Matcher m=Pattern.compile("([\\w ]+):([\\d]+) (.*)").matcher(line);
+		    Matcher m=Pattern.compile("([\\w ]+):([\\d]+):(.*)").matcher(line);
 		    if (m.find())
 		    {
 			Inv.entryList[place].setItem(m.group(1));
-			Inv.entryList[place].setQuantity(Integer.parseInt(m.group(2)));
+			Inv.entryList[place].setQuantity(m.group(2));
 			Inv.entryList[place].setNotes(m.group(3));
 		    }
 		} catch (NullPointerException e) {
@@ -87,7 +73,7 @@ public class methods {
 	{
 	    PrintStream P  = new PrintStream(FileName);
 	    for (int i=0; i < Inv.numele; i++) {
-		    P.println(Inv.entryList[i].getItem()+ ":" +Inv.entryList[i].getQuantity()  + " " +Inv.entryList[i].getNotes());
+		    P.printf("%s:%s:%s%n",Inv.entryList[i].getItem(),Inv.entryList[i].getQuantityString(),Inv.entryList[i].getNotes());
 	    }
 	    P.close();
 	    return;
@@ -95,6 +81,38 @@ public class methods {
 	catch(Exception e)
 	{
 	    return;
+	}
+    }
+    public static int exists(String to_Search)
+    {
+	for (int i=0; i < Inv.numele; ++i)
+	{
+	    if (Inv.entryList[i].getItem().matches(to_Search))
+		return i;
+	}
+	return -1;
+    }
+    
+    public static int exists(String to_Search, int position)
+    {
+	for (int i=position; i < Inv.numele; ++i)
+	{
+	    if (Inv.entryList[i].getItem().matches(to_Search))
+		return i;
+	}
+	return -1;
+    }
+    public static void merge()
+    {
+	int found_pos;
+	for (int i=0; i < Inv.numele; ++i)
+	{
+	    found_pos=exists(Inv.entryList[i].getItem(), i+1);
+	    if ( found_pos != -1)
+	    {
+		Inv.entryList[i].addToQuantity(Inv.entryList[found_pos].getQuantityString());
+		remove(found_pos);
+	    }
 	}
     }
 }
