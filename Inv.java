@@ -88,7 +88,7 @@ public static int numele=0;
         HBox hbox=new HBox();
         hbox.setPadding(new Insets(10,10,10,10));
         hbox.setSpacing(10);
-        hbox.getChildren().addAll(itemInput, quantityInput, notesInput, addB, deleteB);
+        hbox.getChildren().addAll(itemInput, quantityInput, notesInput, addB, deleteB, findB);
                 
         table=new TableView<>();
 	table.setEditable(true);
@@ -135,22 +135,10 @@ public static int numele=0;
 	Button close= new Button("Close");
 	Button BName=new Button("items");
 	BName.setOnAction(e -> {searchItems=true; searchNotes=false;});
-	HBox searchbox= new HBox();
-	searchbox.getChildren().addAll(searchField, BAll, BName, BNotes);
-	searchbox.setPadding(new Insets(10,10,10,10));
-        searchbox.setSpacing(10);
-	table.setItems(found(searchField.getText()));
-	Timer timer = new Timer();
-	timer.scheduleAtFixedRate(new TimerTask() {
-        @Override
-        public void run() {
-         table.setItems(found(searchField.getText()));   
-        }
-    }, 0, 20);
     
 
         VBox vbox=new VBox();
-        vbox.getChildren().addAll(searchbox, table, hbox);
+        vbox.getChildren().addAll(table, hbox);
         
         Scene scene=new Scene(vbox);
         window.setScene(scene);
@@ -187,7 +175,6 @@ public static int numele=0;
 	items temp;
 	int i=0;
         temp=table.getItems().get(table.getSelectionModel().getSelectedIndex());
-	System.out.println(temp.getItem());
 	for (; !temp.getItem().equals(entryList[i].getItem()); ++i);
 	methods.remove(i);
 	table.getItems().clear();

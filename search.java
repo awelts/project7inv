@@ -1,8 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-
 package inv;
 
 import java.util.Timer;
@@ -26,7 +21,10 @@ public abstract class search extends Application {
     
     
     private static TableView<items> table2= new TableView<items>();
-    
+    private static TextField searchField=new TextField();
+    Stage searchbox= new Stage();
+    private static boolean searchItems=true;
+    private static boolean searchNotes=true;
     
     public static void findButtonClicked()
     {
@@ -66,7 +64,7 @@ public abstract class search extends Application {
 	hbox.setPadding(new Insets(10,10,10,10));
 	hbox.setSpacing(10);
 	VBox vbox= new VBox();
-	vbox.getChildren().addAll(hbox, table2, close);
+	vbox.getChildren().addAll(hbox, table2);
 	table2.setItems(found(searchField.getText()));
 	Scene scene= new Scene(vbox);
 	searchbox.setScene(scene);
@@ -100,4 +98,4 @@ public abstract class search extends Application {
 	return results;
     }
     
-}*/
+}
