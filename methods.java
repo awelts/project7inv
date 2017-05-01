@@ -46,7 +46,7 @@ public class methods {
 	{
 		try
 		{
-		    Matcher m=Pattern.compile("([\\w ]+):([\\d]+):(.*)").matcher(line);
+		    Matcher m=Pattern.compile("([\\w ]+):([\\d]+)[: ](.*)").matcher(line);
 		    if (m.find())
 		    {
 			Inv.entryList[place].setItem(m.group(1));
